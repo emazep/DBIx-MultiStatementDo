@@ -1,0 +1,8 @@
+.project
+.includepath
+.build
+DBIx-MultiStatementDo-*
+*~
+*.tmp
+*.bak
+*.stackdump
