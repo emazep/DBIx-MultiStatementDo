@@ -1,6 +1,12 @@
 Revision history for DBIx-MultiStatementDo
 
-0.10000 2011-01-20 07:00:00 CET
+{{$NEXT}}
+
+* Missing DBD::SQLite dependence for testing fixed.
+
+* Minimum SQL::SplitStatement required version has been bumped to 0.20000
+
+0.10000       2011-01-20 07:00:00 Europe/Rome
 
 * Minimum SQL::SplitStatement required version has been bumped to 0.10000
 
@@ -13,13 +19,13 @@ Revision history for DBIx-MultiStatementDo
 
 * Various code refactorings.
 
-0.06001 2010-06-23 06:10:00 CET
+0.06001       2010-06-23 06:10:00 Europe/Rome
 
  * Simply a bug in this Changes file!
    (The method "split_with_placeholders" described below, was called
    "splitter_with_placeholders").
 
-0.06000 2010-06-23 06:00:00 CET
+0.06000       2010-06-23 06:00:00 Europe/Rome
 
  * By an unfortunate accident, the advertised "split_with_placeholders"
    (instance) method did not exist, since it had been renamed to the
@@ -34,14 +40,14 @@ Revision history for DBIx-MultiStatementDo
 
  * End of deprecation cycle on "split" as a class method.
 
-0.05000 2010-06-17 05:00:00 CET
+0.05000       2010-06-17 05:00:00 Europe/Rome
 
  * "do()" can now take also a list of (already split) statements as its first
    parameter, in which case no split is performed.
  
   * Now SQL-SplitStatement-0.05000 is required, which has many enhancements.
 
-0.03000 2010-05-30 04:00:00 CET # NEVER RELEASED TO CPAN
+0.03000       2010-05-30 04:00:00 Europe/Rome # NEVER RELEASED TO CPAN
 
  * "do()" can now take /flat/ "@bind_values" exaclty as DBI's "do()".
  
@@ -52,21 +58,21 @@ Revision history for DBIx-MultiStatementDo
  
  * Assorted minor code and docs enhancements.
 
-0.02000 2010-05-29 05:00:00 CET
+0.02000       2010-05-29 05:00:00 Europe/Rome
 
  * "do()" can now take "\%attr" and "\@bind_values" as optional arguments, like
    DBI's "do()".
  
  * Added tests and docs for this.
 
-0.01002 2010-05-28 19:15:00 CET
+0.01002       2010-05-28 19:15:00 Europe/Rome
 
  * Now SQL-SplitStatement-0.01001 is required, which has the ability to discard
    comments.
  
  * Added tests and docs for this.
 
-0.01001 2010-05-27 08:20:00 CET
+0.01001       2010-05-27 08:20:00 Europe/Rome
 
  * Removed "use strict" and "use warnings" from MultiStatementDo.pm, as Moose
    already activates them.
@@ -76,6 +82,6 @@ Revision history for DBIx-MultiStatementDo
    - Tests and POD modified accordingly.
    - Starting of deprecation cycle of DBIx::MultiStatementDo->split.
 
-0.01000 2010-05-22 02:55:00 CET
+0.01000       2010-05-22 02:55:00 Europe/Rome
 
  * Initial release (renamed from DBIx-DoMore).
