@@ -5,7 +5,7 @@ package DBIx::MultiStatementDo;
 use Moose;
 use Carp qw(croak);
 
-use SQL::SplitStatement 0.20000;
+use SQL::SplitStatement 0.30000;
 
 has 'dbh' => (
     is       => 'rw',
@@ -76,7 +76,9 @@ q[Bind values as a flat list require the placeholder numbers listref to be passe
             );
             $dbh->commit;
             1
-        } or eval { $dbh->rollback }
+        } or eval {
+            $dbh->rollback
+        }
     } else {
         @results = $self->_do_statements(
             $statements, $attr, \@compound_bind_values
@@ -121,6 +123,7 @@ DBIx::MultiStatementDo - Multiple SQL statements in a single do() call with any 
     use DBI;
     use DBIx::MultiStatementDo;
     
+    # Multiple SQL statements in a single string
 my $sql_code = <<'SQL';
     CREATE TABLE parent (a, b, c   , d    );
     CREATE TABLE child (x, y, "w;", "z;z");
@@ -155,12 +158,12 @@ batch, with any DBI driver.
 Here is how DBIx::MultiStatementDo works: behind the scenes it parses the SQL
 code, splits it into the atomic statements it is composed of and executes them
 one by one. To split the SQL code L<SQL::SplitStatement> is used, which uses a
-more sophisticated logic than a raw C<split> on the I<statement terminator
-token>, so that it is able to correctly handle the presence of said token inside
-identifiers, values, comments, C<BEGIN ...  END> blocks (even nested),
-I<dollar-quoted> strings, MySQL custom C<DELIMITER>s etc., as (partially)
-exemplified in the synopsis above.
-Moreover, it is able to handle procedural code.
+more sophisticated logic than a raw C<split> on the C<;> (semicolon) character:
+first, various different statement terminator I<tokens> are recognized, then
+L<SQL::SplitStatement> is able to correctly handle the presence of said tokens
+inside identifiers, values, comments, C<BEGIN ... END> blocks (even nested),
+I<dollar-quoted> strings, MySQL custom C<DELIMITER>s, procedural code etc.,
+as (partially) exemplified in the L</SYNOPSIS> above.
 
 Automatic transactions support is offered by default, so that you'll have the
 I<all-or-nothing> behaviour you would probably expect; if you prefer, you can
@@ -284,7 +287,9 @@ you can do something along this:
         @results = $batch->do( $sql_string );
         $batch->dbh->commit;
         1
-    } or eval { $batch->dbh->rollback };
+    } or eval {
+        $batch->dbh->rollback
+    };
 
 =head3 Bind values as a list reference
 
@@ -512,7 +517,7 @@ for this module.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Emanuele Zeppieri.
+Copyright 2010-2011 Emanuele Zeppieri.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
