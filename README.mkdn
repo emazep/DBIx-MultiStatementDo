@@ -4,7 +4,7 @@ DBIx::MultiStatementDo - Multiple SQL statements in a single do() call with any 
 
 # VERSION
 
-version 1.00000
+version 1.00009
 
 # SYNOPSIS
 
@@ -257,18 +257,12 @@ used.
 
 The recognized placeholders are:
 
-- *
+- * _question mark_ placeholders, represented by the `?` character;
 
-_question mark_ placeholders, represented by the `?` character;
-
-- *
-
-_dollar sign numbered_ placeholders, represented by the
+- * _dollar sign numbered_ placeholders, represented by the
 `$1, $2, ..., $n` strings;
 
-- *
-
-_named parameters_, such as `:foo`, `:bar`, `:baz` etc.
+- * _named parameters_, such as `:foo`, `:bar`, `:baz` etc.
 
 ## `dbh`
 
