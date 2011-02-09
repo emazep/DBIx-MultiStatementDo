@@ -2,6 +2,8 @@ Revision history for DBIx-MultiStatementDo
 
 {{$NEXT}}
 
+1.00009       2011-02-09 10:41:02 Europe/Rome
+
 * POD formatting fixes to obtain a better (automatically generated) README.mkdn.
 
 * Minimum SQL::SplitStatement required version bumped to 1.00009
