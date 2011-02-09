@@ -2,6 +2,8 @@ Revision history for DBIx-MultiStatementDo
 
 {{$NEXT}}
 
+1.00000       2011-02-09 01:50:43 Europe/Rome
+
 * Doc updates about the new placeholders types now recognized
   (/dollar sign numbers/ and /named parameters/).
 
