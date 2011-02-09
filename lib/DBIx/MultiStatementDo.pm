@@ -5,7 +5,7 @@ package DBIx::MultiStatementDo;
 use Moose;
 use Carp qw(croak);
 
-use SQL::SplitStatement 0.30000;
+use SQL::SplitStatement 1.00000;
 
 has 'dbh' => (
     is       => 'rw',
@@ -124,7 +124,7 @@ DBIx::MultiStatementDo - Multiple SQL statements in a single do() call with any 
     use DBIx::MultiStatementDo;
     
     # Multiple SQL statements in a single string
-my $sql_code = <<'SQL';
+    my $sql_code = <<'SQL';
     CREATE TABLE parent (a, b, c   , d    );
     CREATE TABLE child (x, y, "w;", "z;z");
     /* C-style comment; */
@@ -135,7 +135,7 @@ my $sql_code = <<'SQL';
     END;
     -- Standalone SQL; comment; w/ semicolons;
     INSERT INTO parent (a, b, c, d) VALUES ('pippo;', 'pluto;', NULL, NULL);
-SQL
+    SQL
     
     my $dbh = DBI->connect( 'dbi:SQLite:dbname=my.db', '', '' );
     
@@ -291,18 +291,18 @@ you can do something along this:
         $batch->dbh->rollback
     };
 
-=head3 Bind values as a list reference
+=head3 Bind Values as a List Reference
 
 The bind values can be passed as a reference to a list of listrefs, each of
 which contains the bind values for the atomic statement it corresponds to. The
 bind values I<inner> lists must match the corresponding atomic statements as
 returned by the internal I<splitter object>, with C<undef> (or empty listref)
-elements where the corresponding atomic statements have no I<placeholders> (also
-known as or I<parameter markers> - represented by the C<?> character). Here is
-an example:
+elements where the corresponding atomic statements have no I<placeholders>.
+
+Here is an example:
 
     # 7 statements (SQLite valid SQL)
-my $sql_code = <<'SQL';
+    my $sql_code = <<'SQL';
     CREATE TABLE state (id, name);
     INSERT INTO  state (id, name) VALUES (?, ?);
     CREATE TABLE city (id, name, state_id);
@@ -310,7 +310,7 @@ my $sql_code = <<'SQL';
     INSERT INTO  city (id, name, state_id) VALUES (?, ?, ?);
     DROP TABLE city;
     DROP TABLE state
-SQL
+    SQL
     
     # Only 5 elements are required in the bind values list
     my $bind_values = [
@@ -331,7 +331,7 @@ need to be present in the bind values list, as shown above.
 The bind values list can also have more elements than the number of the atomic
 statements, in which case the excess elements will simply be ignored.
 
-=head3 Bind values as a flat list
+=head3 Bind Values as a Flat List
 
 This is a much more powerful feature of C<do>: when it gets the bind values as a
 flat list, it automatically assigns them to the corresponding placeholders (no
@@ -349,7 +349,7 @@ For example, given C<$sql_code> from the example above, you could simply do:
 
 and get exactly the same result.
 
-=head3 Difference between bind values as a list reference and as a flat list
+=head3 Difference between Bind Values as a List Reference and as a Flat List
 
 If you want to pass the bind values as a flat list as described above, you must
 pass the first parameter to C<do> either as a string (so that the internal
@@ -366,6 +366,27 @@ To summarize, bind values as a flat list is easier to use but it suffers from
 this subtle limitation, while bind values as a list reference is a little bit
 more cumbersome to use, but it has no limitations and can therefore always be
 used.
+
+=head3 Recognized Placeholders
+
+The recognized placeholders are:
+
+=over 4
+
+=item *
+
+I<question mark> placeholders, represented by the C<?> character;
+
+=item *
+
+I<dollar sign numbered> placeholders, represented by the
+C<$1, $2, ..., $n> strings;
+
+=item *
+
+I<named parameters>, such as C<:foo>, C<:bar>, C<:baz> etc.
+
+=back
 
 =head2 C<dbh>
 

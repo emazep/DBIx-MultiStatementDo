@@ -2,6 +2,13 @@ Revision history for DBIx-MultiStatementDo
 
 {{$NEXT}}
 
+* Doc updates about the new placeholders types now recognized
+  (/dollar sign numbers/ and /named parameters/).
+
+* Minimum SQL::SplitStatement required version bumped to 1.00000
+
+* Markdown README added (via Dist::Zilla::Plugin::ReadmeMarkdownFromPod).
+
 0.30000       2011-01-23 11:03:12 Europe/Rome
 
 * Minimum SQL::SplitStatement required version bumped to 0.30000
